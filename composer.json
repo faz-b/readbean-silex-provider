@@ -1,0 +1,21 @@
+{
+    "name": "faz-b/redbean-silex-provider",
+    "description": "A RedBean service provider for Silex",
+    "type": "library",
+    "keywords": ["redbean", "silex", "orm", "php"],
+    "require": {
+        "php": ">=5.3.0",
+        "silex/silex": "~1.0",
+        "gabordemooij/redbean": "~4.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "email": "eric@faz-b.com",
+            "homepage": "http://www.faz-b.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"Fazb\\RedBean\\": "src"}
+    }    
+}
