@@ -2,8 +2,9 @@
 
 namespace Fazb\RedBean;
 
+use Pimple\ServiceProviderInterface;
+use Pimple\Container;
 use Silex\Application;
-use Silex\ServiceProviderInterface;
 use Fazb\RedBean\RedBean;
 use Fazb\RedBean\Model\ModelHelper;
 use Fazb\RedBean\Logger;
@@ -16,13 +17,13 @@ class RedBeanServiceProvider implements ServiceProviderInterface
     /**
      * Registers this service on the given app
      *
-     * @param Silex\Application $app Application instance
+     * @param Pimple\Container $app Container instance
      *
      * @return void
      */
-    public function register(Application $app)
+    public function register(Container $app)
     {
-        $app['rb'] = $app->share(function () use ($app) {
+        $app['rb'] = function () use ($app) {
             $options = $app['rb.options'];
             if ($namespace = isset($options['namespace']) ? $options['namespace'] : '') {
                 $this->setModelNamespace($namespace);
@@ -51,13 +52,13 @@ class RedBeanServiceProvider implements ServiceProviderInterface
                     $modelHelper->addModel($model, $options);
                 }
 
-                $app['redbean.model_helper'] = $app->share(function () use ($modelHelper) {
+                $app['redbean.model_helper'] = function () use ($modelHelper) {
                     return $modelHelper;
-                });
+                };
             }
 
             return $rb;
-        });
+        };
     }
 
     /**
